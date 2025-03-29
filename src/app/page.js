@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Search, ArrowRight, Wallet, ChartBar, Clock, Database, Trophy } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { Search, ArrowRight, Wallet, ChartBar, Clock, Database, Trophy, Share2, Download } from 'lucide-react'
 
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState('')
@@ -10,6 +10,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [leaderboard, setLeaderboard] = useState([])
   const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true)
+  const [showShareCard, setShowShareCard] = useState(false)
 
   useEffect(() => {
     // Fetch leaderboard data when component mounts
@@ -43,6 +44,7 @@ export default function Home() {
     setIsLoading(true)
     setError("")
     setFeeData(null)
+    setShowShareCard(false)
 
     try {
       const response = await fetch(`/api/fees?address=${walletAddress}`)
@@ -67,6 +69,21 @@ export default function Home() {
   const shortenAddress = (address) => {
     if (!address) return ''
     return `${address.slice(0, 6)}...${address.slice(-4)}`
+  }
+
+  // Function to handle showing the share card
+  const handleShowShareCard = () => {
+    setShowShareCard(true)
+  }
+
+  // Function to get formatted date
+  const getFormattedDate = () => {
+    const now = new Date()
+    return now.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    })
   }
 
   return (
@@ -183,6 +200,26 @@ export default function Home() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Share Button */}
+              <div className="flex justify-center">
+                <button
+                  onClick={handleShowShareCard}
+                  className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg 
+                  transition-colors active:scale-95"
+                >
+                  <Share2 size={18} />
+                  <span>Share Fee Stats</span>
+                </button>
+              </div>
+
+              {/* Shareable Card */}
+              {showShareCard && (
+                <ImageModal
+                  feeData={feeData}
+                  onClose={() => setShowShareCard(false)}
+                />
+              )}
 
               {/* Transaction History */}
               <div className="bg-gray-700/30 rounded-lg overflow-hidden">
@@ -330,3 +367,85 @@ export default function Home() {
     </div>
   )
 }
+
+const ImageModal = ({ feeData, onClose }) => {
+  const downloadImage = () => {
+    // Create a canvas element
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Create an image element for the background
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+
+    img.onload = () => {
+      // Set canvas dimensions to match the image
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      // Draw the background image
+      ctx.drawImage(img, 0, 0);
+
+      // Add text overlay
+      ctx.font = 'bold 24px Arial';
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      ctx.fillText(feeData.totalFees, canvas.width / 2, canvas.height / 2);
+
+      // Convert to data URL and trigger download
+      const dataUrl = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = 'pnl-with-text.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
+
+    // Set source of image
+    img.src = '/pnl.png';
+  };
+
+  return (
+    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-gray-900 bg-opacity-60 rounded-lg p-6 max-w-lg w-full">
+        <div className="flex justify-end items-center mb-4">
+          <button
+            className="text-gray-500 hover:text-gray-700 cursor-pointer"
+            onClick={onClose}
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="relative">
+          <img src="/pnl.png" alt="PNL Chart" className="w-full" />
+          <div
+            className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            style={{ top: '10%' }}
+          >
+            <h2
+              className="text-white font-extrabold text-4xl bg-opacity-50 p-4 rounded"
+              style={{ fontFamily: "'Poppins', sans-serif" }}
+            >
+              -{feeData.totalFees.toFixed(9)} SOL
+            </h2>
+          </div>
+        </div>
+
+
+        <div className="mt-4 flex justify-end">
+          <button
+            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 
+               text-white py-3 px-6 rounded-lg font-semibold shadow-lg transition-all 
+               duration-300 transform hover:scale-105 cursor-pointer"
+            onClick={downloadImage}
+          >
+            🚀 Download Image
+          </button>
+        </div>
+
+      </div>
+    </div>
+  );
+};
