@@ -55,53 +55,64 @@ async function fetchTransactions(wallet, apiKey) {
   const transactionsUrl = `https://api.helius.xyz/v0/transactions?api-key=${apiKey}`;
 
   try {
-    // Fetch all signatures in one request
-    const response = await fetch(addressesUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        jsonrpc: "2.0",
-        id: "1",
-        method: "getSignaturesForAddress",
-        params: [wallet]
-      })
-    });
+    let nextPage = null;
 
-    if (!response.ok) {
-      console.error("Error fetching signatures:", response.status);
-      return transactions;
-    }
-
-    const data = await response.json();
-    const signatures = data.result.map(tx => tx.signature);
-
-    console.log(`Fetched ${signatures.length} signatures`);
-
-    // Process in batches of 100
-    for (let i = 0; i < signatures.length; i += 100) {
-      const batch = signatures.slice(i, i + 100);
-
-      const transactionData = await fetch(transactionsUrl, {
+    // Loop to fetch signatures using pagination
+    while (true) {
+      const response = await fetch(addressesUrl, {
         method: "POST",
-        headers: {
-          "Authorization": "Basic username:password",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ transactions: batch })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          id: "1",
+          method: "getSignaturesForAddress",
+          params: [wallet, { before: nextPage }] // Use pagination for fetching earlier signatures
+        })
       });
 
-      if (!transactionData.ok) {
-        console.error("Error fetching transactions:", transactionData.status);
-        continue;
+      if (!response.ok) {
+        console.error("Error fetching signatures:", response.status);
+        break;
       }
 
-      const transactionResponse = await transactionData.json();
+      const data = await response.json();
+      const signatures = data.result.map(tx => tx.signature);
 
-      // Filter transactions where feePayer is the wallet
-      const filteredData = transactionResponse.filter(tx => tx.feePayer === wallet);
-      transactions.push(...filteredData);
+      if (signatures.length === 0) {
+        break; // No more signatures to fetch
+      }
 
-      console.log(`Processed batch ${i / 100 + 1}/${Math.ceil(signatures.length / 100)}`);
+      console.log(`Fetched ${signatures.length} signatures`);
+
+      // Process in batches of 100
+      for (let i = 0; i < signatures.length; i += 100) {
+        const batch = signatures.slice(i, i + 100);
+
+        const transactionData = await fetch(transactionsUrl, {
+          method: "POST",
+          headers: {
+            "Authorization": "Basic username:password", // Adjust authorization as needed
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ transactions: batch })
+        });
+
+        if (!transactionData.ok) {
+          console.error("Error fetching transactions:", transactionData.status);
+          continue;
+        }
+
+        const transactionResponse = await transactionData.json();
+
+        // Filter transactions where feePayer is the wallet
+        const filteredData = transactionResponse.filter(tx => tx.feePayer === wallet);
+        transactions.push(...filteredData);
+
+        console.log(`Processed batch ${i / 100 + 1}/${Math.ceil(signatures.length / 100)}`);
+      }
+
+      // Set the nextPage to the last signature for pagination
+      nextPage = data.result[data.result.length - 1].signature;
     }
 
   } catch (error) {
