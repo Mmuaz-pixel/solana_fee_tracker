@@ -1,8 +1,6 @@
 const Decimal = require('decimal.js')
-const fs = require('fs')
 
-const API_KEY = ""
-
+const API_KEY = process.env.API_KEY
 
 const Know_wallets = [
   "MaestroUL88UBnZr3wfoN7hqmNWFi3ZYCGqZoJJHE36",
@@ -110,7 +108,6 @@ async function fetchTransactions(wallet, apiKey) {
     console.error("Fetch error:", error);
   }
 
-  fs.writeFileSync("transactions.json", JSON.stringify(transactions, null, 2));
   return transactions;
 }
 

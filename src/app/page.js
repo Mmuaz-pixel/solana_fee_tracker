@@ -117,7 +117,7 @@ export default function Home() {
           {/* Loading State */}
           {isLoading && (
             <div className="flex justify-center items-center py-6">
-              <ArrowRight size={40} className="text-blue-500 animate-bounce" />
+              Loading Transactions...
             </div>
           )}
 
