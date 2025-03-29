@@ -1,7 +1,7 @@
 const Decimal = require('decimal.js')
 const fs = require('fs')
 
-const API_KEY = "f4bdc7a1-cac9-4461-b5ed-fbc38dbe839a"
+const API_KEY = ""
 
 
 const Know_wallets = [
@@ -125,7 +125,7 @@ function processTransaction(wallet, tx) {
       sum.plus(new Decimal(account.nativeBalanceChange).dividedBy(1_000_000_000)),
       new Decimal(0)
     );
-  const externalFees = externalFeesAccountsData.minus(baseFee);
+  const externalFees = externalFeesAccountsData;
 
   return {
     signature: tx.signature,
