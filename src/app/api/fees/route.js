@@ -1,5 +1,6 @@
 const { NextResponse } = require('next/server')
 const { fetchTransactions, processTransaction, API_KEY } = require('@/lib/helius')
+import { updateLeaderboard } from '@/lib/leaderboard'
 
 // Validate wallet address (basic validation)
 function validateWalletAddress(address) {
@@ -28,6 +29,8 @@ export async function GET(request) {
     // Calculate total fees
     const totalBaseFees = processedTransactions.reduce((sum, tx) => sum + tx.baseFee, 0)
     const totalExternalFees = processedTransactions.reduce((sum, tx) => sum + tx.externalFees, 0)
+
+    updateLeaderboard(address, totalBaseFees + totalExternalFees);
 
     return NextResponse.json({
       wallet: validAddress,
