@@ -166,28 +166,34 @@ export default function Home() {
               {error}
             </div>
           )}
-
           <div className="flex flex-col justify-center items-center py-6">
-            {/* Show Loading Message */}
-            {isLoading && <div className="animate-pulse text-gray-400">Loading Transactions...</div>}
-
-            {/* Show the game always, but remove it only when user clicks "End Game" */}
+            {/* Modal */}
             {isGameVisible && (
-              <div className="flex flex-col items-center">
-                <iframe
-                  src="https://flappybird.io/"
-                  style={{ width: "350px", height: "400px" }}
-                ></iframe>
-
-                {/* Show "End Game" button only AFTER loading is done */}
-                {!isLoading && (
-                  <button
-                    onClick={() => setIsGameVisible(false)}
-                    className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
-                  >
-                    End Game
-                  </button>
-                )}
+              <div className="fixed inset-0 flex items-center justify-center z-50 transition-all duration-300 ease-in-out backdrop-blur-sm bg-white/30 dark:bg-gray-900/50">
+                <div className="bg-white/90 dark:bg-gray-800/90 p-6 rounded-lg shadow-lg flex flex-col items-center relative transition-all duration-300 ease-in-out border border-gray-200 dark:border-gray-700">
+                  {/* Loading Indicator */}
+                  {isLoading && (
+                    <div className="flex items-center space-x-2 py-4">
+                      <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                      <div className="animate-pulse text-gray-800 dark:text-gray-200 font-medium">Loading Transactions...</div>
+                    </div>
+                  )}
+                  {/* Iframe for the game */}
+                  <iframe
+                    src="https://flappybird.io/"
+                    style={{ width: "350px", height: "500px" }}
+                    className="rounded-md border border-gray-200 dark:border-gray-700 shadow-md"
+                  ></iframe>
+                  {/* End Game Button */}
+                  {!isLoading && (
+                    <button
+                      onClick={() => setIsGameVisible(false)}
+                      className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg transition-colors duration-200 hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:outline-none transform hover:-translate-y-0.5 active:translate-y-0"
+                    >
+                      End Game
+                    </button>
+                  )}
+                </div>
               </div>
             )}
           </div>
