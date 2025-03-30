@@ -181,17 +181,20 @@ export default function Home() {
                   {/* Iframe for the game */}
                   <iframe
                     src="https://flappybird.io/"
-                    style={{ width: "350px", height: "500px" }}
+                    style={{ width: "350px", height: "500px", overflow: "hidden" }}
                     className="rounded-md border border-gray-200 dark:border-gray-700 shadow-md"
+                    scrolling="no"
                   ></iframe>
+
                   {/* End Game Button */}
                   {!isLoading && (
                     <button
                       onClick={() => setIsGameVisible(false)}
-                      className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg transition-colors duration-200 hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:outline-none transform hover:-translate-y-0.5 active:translate-y-0"
+                      className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg transition-colors duration-200 hover:bg-green-600 focus:ring-2 focus:ring-green-400 focus:outline-none transform hover:-translate-y-0.5 active:translate-y-0"
                     >
-                      End Game
+                      Check Results
                     </button>
+
                   )}
                 </div>
               </div>
