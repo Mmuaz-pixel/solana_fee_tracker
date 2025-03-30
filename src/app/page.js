@@ -11,6 +11,7 @@ export default function Home() {
   const [leaderboard, setLeaderboard] = useState([])
   const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true)
   const [showShareCard, setShowShareCard] = useState(false)
+  const [isGameVisible, setIsGameVisible] = useState(false);
 
   useEffect(() => {
     // Fetch leaderboard data when component mounts
@@ -42,6 +43,7 @@ export default function Home() {
     }
 
     setIsLoading(true)
+    setIsGameVisible(true);
     setError("")
     setFeeData(null)
     setShowShareCard(false)
@@ -165,12 +167,30 @@ export default function Home() {
             </div>
           )}
 
-          {/* Loading State */}
-          {isLoading && (
-            <div className="flex justify-center items-center py-6">
-              Loading Transactions...
-            </div>
-          )}
+          <div className="flex flex-col justify-center items-center py-6">
+            {/* Show Loading Message */}
+            {isLoading && <div className="animate-pulse text-gray-400">Loading Transactions...</div>}
+
+            {/* Show the game always, but remove it only when user clicks "End Game" */}
+            {isGameVisible && (
+              <div className="flex flex-col items-center">
+                <iframe
+                  src="https://flappybird.io/"
+                  style={{ width: "350px", height: "400px" }}
+                ></iframe>
+
+                {/* Show "End Game" button only AFTER loading is done */}
+                {!isLoading && (
+                  <button
+                    onClick={() => setIsGameVisible(false)}
+                    className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg"
+                  >
+                    End Game
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
 
           {/* Fee Data Display */}
           {feeData && !isLoading && (
