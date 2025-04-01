@@ -73,8 +73,7 @@ export default function Home() {
 
     const exists = topLeaderBoards.some((entry) => entry.address === walletAddress);
 
-    if(exists)
-    {
+    if (exists) {
       setError("Check the KOL Leadorboard")
       return
     }
@@ -115,25 +114,17 @@ export default function Home() {
     setShowShareCard(true)
   }
 
-  // Function to get formatted date
-  const getFormattedDate = () => {
-    const now = new Date()
-    return now.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    })
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-100">
       <div className="container mx-auto px-4 py-12">
 
         {/* Header Section */}
         <div className="text-center mb-12 relative">
-          <div className="absolute top-0 left-3">
+          <div className="flex absolute top-0 left-3 items-center space-x-2">
             <img src="/logo.png" alt="Logo" className="w-16 h-16" />
+            <h2 className="text-lg font-semibold">FeeScope</h2>
           </div>
+
           <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
             Solana Gas Fee Analytics
           </h1>
@@ -263,15 +254,19 @@ export default function Home() {
                   <tbody>
                     <tr className="border-b border-gray-700/30">
                       <td className="p-3">Standard Fees</td>
-                      <td className="p-3 text-right text-green-400">{feeData.totalBaseFees.toLocaleString()}</td>
+                      <td className="p-3 text-right text-green-400">{feeData.totalBaseFees}</td>
                     </tr>
                     <tr className="border-b border-gray-700/30">
                       <td className="p-3">Platform Fees</td>
-                      <td className="p-3 text-right text-yellow-400">{feeData.totalExternalFees.toLocaleString()}</td>
+                      <td className="p-3 text-right text-yellow-400">{feeData.totalExternalFees}</td>
                     </tr>
                     <tr className="bg-blue-500/10">
                       <td className="p-3 font-bold">Total Fees</td>
-                      <td className="p-3 text-right font-bold text-blue-400">{feeData.totalFees.toLocaleString()}</td>
+                      <td className="p-3 text-right font-bold text-blue-400">{feeData.totalFees}</td>
+                    </tr>
+                    <tr className="bg-blue-500/10">
+                      <td className="p-3 font-bold">Leaderboard Position</td>
+                      <td className="p-3 text-right font-bold text-blue-400">{feeData.position}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -331,9 +326,9 @@ export default function Home() {
                               {tx.signature.slice(0, 30)}...
                             </a>
                           </td>
-                          <td className="p-2 text-right text-green-400">{tx.baseFee.toLocaleString()}</td>
-                          <td className="p-2 text-right text-yellow-400">{tx.externalFees.toLocaleString()}</td>
-                          <td className="p-2 text-right text-blue-400">{tx.totalFee.toLocaleString()}</td>
+                          <td className="p-2 text-right text-green-400">{tx.baseFee}</td>
+                          <td className="p-2 text-right text-yellow-400">{tx.externalFees}</td>
+                          <td className="p-2 text-right text-blue-400">{tx.totalFee}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -389,7 +384,7 @@ export default function Home() {
                         </a>
                       </td>
                       <td className="p-3 text-right font-medium text-blue-400">
-                        {entry.totalFees.toLocaleString()}
+                        {entry.totalFees}
                       </td>
                     </tr>
                   ))}
@@ -460,7 +455,7 @@ export default function Home() {
                             </a>
                           </td>
                           <td className="p-3 text-right font-medium text-blue-400">
-                            {entry.totalFees.toLocaleString()}
+                            {entry.totalFees}
                           </td>
                         </tr>
                       ))
@@ -510,16 +505,16 @@ const ImageModal = ({ feeData, onClose }) => {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0);
-      
+
       // Match the styling from the displayed image
       ctx.font = "bold 28px 'Poppins', sans-serif";
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
-      
+
       // Position text at 10% from the top instead of center
       const textY = canvas.height * 0.1;
       ctx.fillText(`-${feeData.totalFees.toFixed(9)} SOL`, canvas.width / 2, textY);
-      
+
       canvas.toBlob(async (blob) => {
         try {
           await navigator.clipboard.write([
@@ -533,7 +528,7 @@ const ImageModal = ({ feeData, onClose }) => {
     };
     img.src = '/pnl.png';
   };
-  
+
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-gray-900 bg-opacity-60 rounded-lg p-6 max-w-lg w-full">

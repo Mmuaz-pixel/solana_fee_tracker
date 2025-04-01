@@ -36,8 +36,8 @@ export function validateWalletAddress(address) {
 
 // Update the leaderboard
 export function updateLeaderboard(wallet, totalFees) {
-  const existingEntry = leaderboard.find(entry => entry.wallet === wallet);
-  
+  let existingEntry = leaderboard.find(entry => entry.wallet === wallet);
+
   if (existingEntry) {
     existingEntry.totalFees = totalFees;
   } else {
@@ -49,4 +49,9 @@ export function updateLeaderboard(wallet, totalFees) {
   leaderboard = leaderboard.slice(0, 10);
 
   saveLeaderboard(leaderboard);
+
+  // Find the new position of the wallet (1-based index)
+  const newPosition = leaderboard.findIndex(entry => entry.wallet === wallet) + 1;
+
+  return newPosition;
 }

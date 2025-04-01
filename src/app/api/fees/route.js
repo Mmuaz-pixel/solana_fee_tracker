@@ -30,7 +30,7 @@ export async function GET(request) {
     const totalBaseFees = processedTransactions.reduce((sum, tx) => sum + tx.baseFee, 0)
     const totalExternalFees = processedTransactions.reduce((sum, tx) => sum + tx.externalFees, 0)
 
-    updateLeaderboard(address, totalBaseFees + totalExternalFees);
+    const position = updateLeaderboard(address, totalBaseFees + totalExternalFees);
 
     return NextResponse.json({
       wallet: validAddress,
@@ -38,7 +38,8 @@ export async function GET(request) {
       totalBaseFees,
       totalExternalFees,
       totalFees: totalBaseFees + totalExternalFees,
-      transactions: processedTransactions
+      transactions: processedTransactions,
+      position: position
     })
   } catch (error) {
     console.error('Fee lookup error:', error)
