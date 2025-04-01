@@ -3,6 +3,35 @@
 import { useState, useEffect, useRef } from 'react'
 import { Search, ArrowRight, Wallet, ChartBar, Clock, Database, Trophy, Share2, Download } from 'lucide-react'
 
+const topLeaderBoards = [
+  {
+    name: "Euris",
+    address: "DfMxre4cKmvogbLrPigxmibVTTQDuzjdXojWzjCXXhzj",
+    totalFees: 5796.192933325792
+  },
+  {
+    name: "West",
+    address: "JDd3hy3gQn2V982mi1zqhNqUw1GfV2UL6g76STojCJPN",
+    totalFees: 3115.2462797280023
+  },
+  {
+    name: "Pow",
+    address: "8zFZHuSRuDpuAR7J6FzwyF3vKNx4CVW3DFHJerQhc7Zd",
+    totalFees: 4162.88473040402
+  },
+  {
+    name: "Casino",
+    address: "8rvAsDKeAcEjEkiZMug9k8v1y8mW6gQQiMobd89Uy7qR",
+    totalFees: 3385.139385574078
+  },
+  {
+    name: "Kreo",
+    address: "BCnqsPEtA1TkgednYEebRpkmwFRJDCjMQcKZMMtEdArc",
+    totalFees: 1453.2635644760444
+  }
+];
+
+
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState('')
   const [feeData, setFeeData] = useState(null)
@@ -39,6 +68,14 @@ export default function Home() {
   const handleSearch = async () => {
     if (!walletAddress) {
       setError('Please enter a wallet address')
+      return
+    }
+
+    const exists = topLeaderBoards.some((entry) => entry.address === walletAddress);
+
+    if(exists)
+    {
+      setError("Check the KOL Leadorboard")
       return
     }
 
@@ -91,8 +128,12 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-100">
       <div className="container mx-auto px-4 py-12">
+
         {/* Header Section */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 relative">
+          <div className="absolute top-0 left-3">
+            <img src="/logo.png" alt="Logo" className="w-16 h-16" />
+          </div>
           <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
             Solana Gas Fee Analytics
           </h1>
@@ -101,6 +142,12 @@ export default function Home() {
             Our tool provides comprehensive insights into your blockchain expenses,
             helping you optimize your transaction strategies.
           </p>
+
+          <p className='text-gray-200 py-2 max-w-2xl mx-auto'>CA: soon</p>
+
+          <a href='#leaderboard' className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition duration-300 cursor-pointer">
+            View Leaderboard
+          </a>
         </div>
 
         {/* Key Features Preview */}
@@ -215,16 +262,16 @@ export default function Home() {
                   </thead>
                   <tbody>
                     <tr className="border-b border-gray-700/30">
-                      <td className="p-3">Base Fees</td>
-                      <td className="p-3 text-right text-green-400">{feeData.totalBaseFees}</td>
+                      <td className="p-3">Standard Fees</td>
+                      <td className="p-3 text-right text-green-400">{feeData.totalBaseFees.toLocaleString()}</td>
                     </tr>
                     <tr className="border-b border-gray-700/30">
-                      <td className="p-3">External Fees</td>
-                      <td className="p-3 text-right text-yellow-400">{feeData.totalExternalFees}</td>
+                      <td className="p-3">Platform Fees</td>
+                      <td className="p-3 text-right text-yellow-400">{feeData.totalExternalFees.toLocaleString()}</td>
                     </tr>
                     <tr className="bg-blue-500/10">
                       <td className="p-3 font-bold">Total Fees</td>
-                      <td className="p-3 text-right font-bold text-blue-400">{feeData.totalFees}</td>
+                      <td className="p-3 text-right font-bold text-blue-400">{feeData.totalFees.toLocaleString()}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -260,8 +307,8 @@ export default function Home() {
                     <thead className="sticky top-0 bg-gray-700/50">
                       <tr>
                         <th className="p-2 text-left">Signature</th>
-                        <th className="p-2 text-right">Base Fee</th>
-                        <th className="p-2 text-right">External Fee</th>
+                        <th className="p-2 text-right">Standard Fee</th>
+                        <th className="p-2 text-right">Platform Fee</th>
                         <th className="p-2 text-right">Total Fee</th>
                       </tr>
                     </thead>
@@ -284,9 +331,9 @@ export default function Home() {
                               {tx.signature.slice(0, 30)}...
                             </a>
                           </td>
-                          <td className="p-2 text-right text-green-400">{tx.baseFee}</td>
-                          <td className="p-2 text-right text-yellow-400">{tx.externalFees}</td>
-                          <td className="p-2 text-right text-blue-400">{tx.totalFee}</td>
+                          <td className="p-2 text-right text-green-400">{tx.baseFee.toLocaleString()}</td>
+                          <td className="p-2 text-right text-yellow-400">{tx.externalFees.toLocaleString()}</td>
+                          <td className="p-2 text-right text-blue-400">{tx.totalFee.toLocaleString()}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -297,93 +344,149 @@ export default function Home() {
           )}
         </div>
 
-        {/* Leaderboard Section */}
-        <div className="md:w-3/4 mx-auto bg-gray-800/50 rounded-2xl border border-gray-700 p-6 shadow-2xl mt-12">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-2">
-              <Trophy className="text-yellow-400 w-6 h-6" />
-              <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-500">
-                Fee Leaderboard
-              </h2>
+        <div className='flex'>
+          {/* Leaderboard Section */}
+          <div
+            id="leaderboard"
+            className="md:w-2/5 mx-3 bg-gray-800/50 rounded-2xl border border-gray-700 p-6 shadow-2xl mt-12 h-96 overflow-y-auto"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <Trophy className="text-yellow-400 w-6 h-6" />
+                <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-500">
+                  KOL Leaderboard
+                </h2>
+              </div>
             </div>
-            <button
-              onClick={fetchLeaderboard}
-              className="text-gray-400 hover:text-gray-200 transition-colors text-sm"
-              disabled={isLeaderboardLoading}
-            >
-              Refresh
-            </button>
-          </div>
 
-          {isLeaderboardLoading ? (
-            <div className="flex justify-center items-center py-10">
-              <div className="animate-pulse text-gray-400">Loading leaderboard...</div>
-            </div>
-          ) : (
             <div className="bg-gray-700/30 rounded-lg overflow-hidden">
               <table className="w-full text-gray-300">
-                <thead className="bg-gray-700/50">
+                {/* Sticky Header */}
+                <thead className="bg-gray-700/50 sticky top-0">
                   <tr>
-                    <th className="p-3 text-left">Rank</th>
+                    <th className="p-3 text-left">Name</th>
                     <th className="p-3 text-left">Wallet</th>
                     <th className="p-3 text-right">Total Fees (SOL)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {leaderboard.length > 0 ? (
-                    leaderboard.map((entry, index) => (
-                      <tr
-                        key={entry.wallet}
-                        className={`
+                  {topLeaderBoards.map((entry, index) => (
+                    <tr
+                      key={entry.address}
+                      className="border-b border-gray-700/30 hover:bg-blue-500/10 transition-colors"
+                    >
+                      <td className="p-3 font-semibold">
+                        <span>{entry.name}</span>
+                      </td>
+                      <td className="p-3">
+                        <a
+                          href={`https://solscan.io/account/${entry.wallet}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-400 hover:text-blue-300 underline"
+                        >
+                          {shortenAddress(entry.address)}
+                        </a>
+                      </td>
+                      <td className="p-3 text-right font-medium text-blue-400">
+                        {entry.totalFees.toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Leaderboard Section */}
+          <div id='leaderboard' className="md:w-3/5 mx-auto bg-gray-800/50 rounded-2xl border border-gray-700 p-6 shadow-2xl mt-12">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <Trophy className="text-yellow-400 w-6 h-6" />
+                <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-500">
+                  Fee Leaderboard
+                </h2>
+              </div>
+              <button
+                onClick={fetchLeaderboard}
+                className="text-gray-400 hover:text-gray-200 transition-colors text-sm"
+                disabled={isLeaderboardLoading}
+              >
+                Refresh
+              </button>
+            </div>
+
+            {isLeaderboardLoading ? (
+              <div className="flex justify-center items-center py-10">
+                <div className="animate-pulse text-gray-400">Loading leaderboard...</div>
+              </div>
+            ) : (
+              <div className="bg-gray-700/30 rounded-lg overflow-hidden">
+                <table className="w-full text-gray-300">
+                  <thead className="bg-gray-700/50">
+                    <tr>
+                      <th className="p-3 text-left">Rank</th>
+                      <th className="p-3 text-left">Wallet</th>
+                      <th className="p-3 text-right">Total Fees (SOL)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {leaderboard.length > 0 ? (
+                      leaderboard.map((entry, index) => (
+                        <tr
+                          key={entry.wallet}
+                          className={`
                             border-b border-gray-700/30 
                             ${index === 0 ? 'bg-yellow-500/10' : ''}
                             ${index === 1 ? 'bg-gray-400/10' : ''}
                             ${index === 2 ? 'bg-amber-700/10' : ''}
                             hover:bg-blue-500/10 transition-colors
                           `}
-                      >
-                        <td className="p-3 font-semibold">
-                          {index === 0 && <span className="text-yellow-400">🥇</span>}
-                          {index === 1 && <span className="text-gray-300">🥈</span>}
-                          {index === 2 && <span className="text-amber-700">🥉</span>}
-                          {index > 2 && <span>{index + 1}</span>}
-                        </td>
-                        <td className="p-3">
-                          <a
-                            href={`https://solscan.io/account/${entry.wallet}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-400 hover:text-blue-300 underline"
-                          >
-                            {shortenAddress(entry.wallet)}
-                          </a>
-                        </td>
-                        <td className="p-3 text-right font-medium text-blue-400">
-                          {entry.totalFees}
+                        >
+                          <td className="p-3 font-semibold">
+                            {index === 0 && <span className="text-yellow-400">🥇</span>}
+                            {index === 1 && <span className="text-gray-300">🥈</span>}
+                            {index === 2 && <span className="text-amber-700">🥉</span>}
+                            {index > 2 && <span>{index + 1}</span>}
+                          </td>
+                          <td className="p-3">
+                            <a
+                              href={`https://solscan.io/account/${entry.wallet}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-400 hover:text-blue-300 underline"
+                            >
+                              {shortenAddress(entry.wallet)}
+                            </a>
+                          </td>
+                          <td className="p-3 text-right font-medium text-blue-400">
+                            {entry.totalFees.toLocaleString()}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={3} className="p-6 text-center text-gray-500">
+                          No data available
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={3} className="p-6 text-center text-gray-500">
-                        No data available
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          )}
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
-          <div className="mt-4 text-xs text-gray-500 text-center">
-            Leaderboard shows wallets with highest total transaction fees
+            <div className="mt-4 text-xs text-gray-500 text-center">
+              Leaderboard shows wallets with highest total transaction fees
+            </div>
           </div>
+
         </div>
 
         {/* Footer Section */}
         <div className="text-center mt-12 text-gray-500">
           <p className="mb-4">
-            Powered by Next.js & Tailwind CSS |
+            FeeScope |
             Blockchain Fee Tracking Made Simple
           </p>
           <div className="flex justify-center space-x-4">
@@ -398,43 +501,39 @@ export default function Home() {
 }
 
 const ImageModal = ({ feeData, onClose }) => {
-  const downloadImage = () => {
-    // Create a canvas element
+  const copyImageToClipboard = () => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-
-    // Create an image element for the background
     const img = new Image();
     img.crossOrigin = 'Anonymous';
-
-    img.onload = () => {
-      // Set canvas dimensions to match the image
+    img.onload = async () => {
       canvas.width = img.width;
       canvas.height = img.height;
-
-      // Draw the background image
       ctx.drawImage(img, 0, 0);
-
-      // Add text overlay
-      ctx.font = 'bold 24px Arial';
+      
+      // Match the styling from the displayed image
+      ctx.font = "bold 28px 'Poppins', sans-serif";
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
-      ctx.fillText(feeData.totalFees, canvas.width / 2, canvas.height / 2);
-
-      // Convert to data URL and trigger download
-      const dataUrl = canvas.toDataURL('image/png');
-      const a = document.createElement('a');
-      a.href = dataUrl;
-      a.download = 'pnl-with-text.png';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      
+      // Position text at 10% from the top instead of center
+      const textY = canvas.height * 0.1;
+      ctx.fillText(`-${feeData.totalFees.toFixed(9)} SOL`, canvas.width / 2, textY);
+      
+      canvas.toBlob(async (blob) => {
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          alert('Image copied to clipboard! ✅');
+        } catch (err) {
+          console.error('Failed to copy image: ', err);
+        }
+      }, 'image/png');
     };
-
-    // Set source of image
     img.src = '/pnl.png';
   };
-
+  
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-gray-900 bg-opacity-60 rounded-lg p-6 max-w-lg w-full">
@@ -446,7 +545,6 @@ const ImageModal = ({ feeData, onClose }) => {
             ✕
           </button>
         </div>
-
         <div className="relative">
           <img src="/pnl.png" alt="PNL Chart" className="w-full" />
           <div
@@ -461,19 +559,16 @@ const ImageModal = ({ feeData, onClose }) => {
             </h2>
           </div>
         </div>
-
-
         <div className="mt-4 flex justify-end">
           <button
-            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 
-               text-white py-3 px-6 rounded-lg font-semibold shadow-lg transition-all 
-               duration-300 transform hover:scale-105 cursor-pointer"
-            onClick={downloadImage}
+            className="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 
+              text-white py-3 px-6 rounded-lg font-semibold shadow-lg transition-all
+              duration-300 transform hover:scale-105 cursor-pointer"
+            onClick={copyImageToClipboard}
           >
-            🚀 Download Image
+            📋 Copy Image
           </button>
         </div>
-
       </div>
     </div>
   );
