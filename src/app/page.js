@@ -550,7 +550,7 @@ export default function Home() {
             <div className="bg-gray-700/30 rounded-lg overflow-hidden h-72 overflow-y-auto">
               <table className="w-full text-gray-300">
                 {/* Sticky Header */}
-                <thead className="bg-gray-700/50 sticky top-0">
+                <thead className="bg-gray-700 sticky top-0">
                   <tr>
                     <th className="p-3 text-left">Name</th>
                     <th className="p-3 text-left">Wallet</th>
@@ -568,7 +568,7 @@ export default function Home() {
                       </td>
                       <td className="p-3">
                         <a
-                          href={`https://solscan.io/account/${entry.wallet}`}
+                          href={`https://solscan.io/account/${entry.address}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-400 hover:text-blue-300 underline"
@@ -611,7 +611,7 @@ export default function Home() {
             ) : (
               <div className="bg-gray-700/30 rounded-lg overflow-hidden h-72 overflow-y-auto">
                 <table className="w-full text-gray-300">
-                  <thead className="bg-gray-700/50">
+                  <thead className="bg-gray-700 sticky">
                     <tr>
                       <th className="p-3 text-left">Rank</th>
                       <th className="p-3 text-left">Wallet</th>
