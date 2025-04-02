@@ -3,21 +3,53 @@
 import { useState, useEffect, useRef } from 'react'
 import { Search, ArrowRight, Wallet, ChartBar, Clock, Database, Trophy, Share2, Download } from 'lucide-react'
 
+import domtoimage from 'dom-to-image';
+
 const topLeaderBoards = [
+  {
+    name: "Cupsey",
+    address: "suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
+    totalFees: 19442.540720612007
+  },
+  {
+    name: "Jidn",
+    address: "3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE",
+    totalFees: 7412.0151709756765
+  },
+  {
+    name: "Cooker",
+    address: "8deJ9xeUvXSJwicYptA9mHsU2rN2pDx37KWzkDkEXhU6",
+    totalFees: 7040.021866483238
+  },
   {
     name: "Euris",
     address: "DfMxre4cKmvogbLrPigxmibVTTQDuzjdXojWzjCXXhzj",
     totalFees: 5796.192933325792
   },
   {
-    name: "West",
-    address: "JDd3hy3gQn2V982mi1zqhNqUw1GfV2UL6g76STojCJPN",
-    totalFees: 3115.2462797280023
+    name: "MrFrog",
+    address: "4DdrfiDHpmx55i4SPssxVzS9ZaKLb8qr45NKY9Er9nNh",
+    totalFees: 5067.330240729964
   },
   {
     name: "Pow",
     address: "8zFZHuSRuDpuAR7J6FzwyF3vKNx4CVW3DFHJerQhc7Zd",
-    totalFees: 4162.88473040402
+    totalFees: 4162.884730404021
+  },
+  {
+    name: "Publix",
+    address: "86AEJExyjeNNgcp7GrAvCXTDicf5aGWgoERbXFiG1EdD",
+    totalFees: 4007.2531761437785
+  },
+  {
+    name: "Nach",
+    address: "9jyqFiLnruggwNn4EQwBNFXwpbLM9hrA4hV59ytyAVVz",
+    totalFees: 3796.460305132303
+  },
+  {
+    name: "Assasin",
+    address: "6LChaYRYtEYjLEHhzo4HdEmgNwu2aia8CM8VhR9wn6n7",
+    totalFees: 3605.402711569819
   },
   {
     name: "Casino",
@@ -25,9 +57,164 @@ const topLeaderBoards = [
     totalFees: 3385.139385574078
   },
   {
+    name: "OgAntD",
+    address: "215nhcAHjQQGgwpQSJQ7zR26etbjjtVdW74NLzwEgQjP",
+    totalFees: 3319.955297533334
+  },
+  {
+    name: "West",
+    address: "JDd3hy3gQn2V982mi1zqhNqUw1GfV2UL6g76STojCJPN",
+    totalFees: 3115.2462797280023
+  },
+  {
+    name: "Ferb",
+    address: "m7Kaas3Kd8FHLnCioSjCoSuVDReZ6FDNBVM6HTNYuF7",
+    totalFees: 2630.5986277209927
+  },
+  {
+    name: "Loopierr",
+    address: "9yYya3F5EJoLnBNKW6z4bZvyQytMXzDcpU5D6yYr4jqL",
+    totalFees: 2477.0859534168376
+  },
+  {
+    name: "Tim",
+    address: "AJ6MGExeK7FXmeKkKPmALjcdXVStXYokYNv9uVfDRtvo",
+    totalFees: 2296.4181768308804
+  },
+  {
+    name: "404Flipped",
+    address: "AbcX4XBm7DJ3i9p29i6sU8WLmiW4FWY5tiwB9D6UBbcE",
+    totalFees: 2088.432251463977
+  },
+  {
+    name: "Orange",
+    address: "96sErVjEN7LNJ6Uvj63bdRWZxNuBngj56fnT9biHLKBf",
+    totalFees: 2059.6822260370004
+  },
+  {
+    name: "Bastille",
+    address: "3kebnKw7cPdSkLRfiMEALyZJGZ4wdiSRvmoN4rD1yPzV",
+    totalFees: 1916.9409923028375
+  },
+  {
+    name: "Gake",
+    address: "DNfuF1L62WWyW3pNakVkyGGFzVVhj4Yr52jSmdTyeBHm",
+    totalFees: 1903.3469697003184
+  },
+  {
+    name: "S",
+    address: "ApRnQN2HkbCn7W2WWiT2FEKvuKJp9LugRyAE1a9Hdz1",
+    totalFees: 1719.221209759915
+  },
+  {
     name: "Kreo",
     address: "BCnqsPEtA1TkgednYEebRpkmwFRJDCjMQcKZMMtEdArc",
     totalFees: 1453.2635644760444
+  },
+  {
+    name: "Gorilla Capital",
+    address: "DpNVrtA3ERfKzX4F8Pi2CVykdJJjoNxyY5QgoytAwD26",
+    totalFees: 1293.2584211300132
+  },
+  {
+    name: "Daumen",
+    address: "8MaVa9kdt3NW4Q5HyNAm1X5LbR8PQRVDc1W8NMVK88D5",
+    totalFees: 1253.5031278890337
+  },
+  {
+    name: "Tahi",
+    address: "5x8tfrJSn4Pt5gjQEMWDnoLvAzZ8rgJVTXiTpcwhbxmN",
+    totalFees: 1264.0566900790084
+  },
+  {
+    name: "Al4n",
+    address: "2YJbcB9G8wePrpVBcT31o8JEed6L3abgyCjt5qkJMymV",
+    totalFees: 1105.8697194080128
+  },
+  {
+    name: "Red",
+    address: "7ABz8qEFZTHPkovMDsmQkm64DZWN5wRtU7LEtD2ShkQ6",
+    totalFees: 891.5134470649458
+  },
+  {
+    name: "MoneyMaykah",
+    address: "2CXbN6nuTTb4vCrtYM89SfQHMMKGPAW4mvFe6Ht4Yo6z",
+    totalFees: 855.2372555089712
+  },
+  {
+    name: "Kadenox",
+    address: "3pZ59YENxDAcjaKa3sahZJBcgER4rGYi4v6BpPurmsGj",
+    totalFees: 699.6631053139957
+  },
+  {
+    name: "Dex",
+    address: "mW4PZB45isHmnjGkLpJvjKBzVS5NXzTJ8UDyug4gTsM",
+    totalFees: 597.8728476660036
+  },
+  {
+    name: "Qtdegen",
+    address: "7tiRXPM4wwBMRMYzmywRAE6jveS3gDbNyxgRrEoU6RLA",
+    totalFees: 570.541990394993
+  },
+  {
+    name: "Insyder",
+    address: "G3g1CKqKWSVEVURZDNMazDBv7YAhMNTjhJBVRTiKZygk",
+    totalFees: 542.0420696220025
+  },
+  {
+    name: "Leens",
+    address: "7iabBMwmSvS4CFPcjW2XYZY53bUCHzXjCFEFhxeYP4CY",
+    totalFees: 521.1685040819845
+  },
+  {
+    name: "ShockedJS",
+    address: "6m5sW6EAPAHncxnzapi1ZVJNRb9RZHQ3Bj7FD84X9rAF",
+    totalFees: 507.13125244599973
+  },
+  {
+    name: "Issa",
+    address: "2BU3NAzgRA2gg2MpzwwXpA8X4CCRaLgrf6TY1FKfJPX2",
+    totalFees: 489.22767962599755
+  },
+  {
+    name: "yenni",
+    address: "5B52w1ZW9tuwUduueP5J7HXz5AcGfruGoX6YoAudvyxG",
+    totalFees: 383.0619606869767
+  },
+  {
+    name: "Henn100x",
+    address: "FRbUNvGxYNC1eFngpn7AD3f14aKKTJVC6zSMtvj2dyCS",
+    totalFees: 220.68108175199825
+  },
+  {
+    name: "DV",
+    address: "BCagckXeMChUKrHEd6fKFA1uiWDtcmCXMsqaheLiUPJd",
+    totalFees: 974.3282531759791
+  },
+  {
+    name: "Nyhrox",
+    address: "7uTZLDL3mY6kDnwxuqqu3WGgtMiPsYMmCvX3NQt4W8VS",
+    totalFees: 114.78041691400081
+  },
+  {
+    name: "Dior",
+    address: "D2wBctC1K2mEtA17i8ZfdEubkiksiAH2j8F7ri3ec71V",
+    totalFees: 113.94734242100034
+  },
+  {
+    name: "Robo",
+    address: "Gv7CnRo2L2SJ583XEfoKHKbmWK3wNoBDxVoJqMKJR4Nu",
+    totalFees: 108.55491885500024
+  },
+  {
+    name: "Jaden",
+    address: "CqQKv6XdrMWrz3YuSwqTTcVoQK5eu4zNo3hps3M1Q3yo",
+    totalFees: 46.126673182000026
+  },
+  {
+    name: "Lynk",
+    address: "2UfCfxdWrwnPDVvT245EwmcyUabQE2wuWYcBozj44ZA1",
+    totalFees: 4.108438959000002
   }
 ];
 
@@ -120,9 +307,9 @@ export default function Home() {
 
         {/* Header Section */}
         <div className="text-center mb-12 relative">
-          <div className="flex absolute top-0 left-3 items-center space-x-2">
-            <img src="/logo.png" alt="Logo" className="w-16 h-16" />
-            <h2 className="text-lg font-semibold">FeeScope</h2>
+          <div className="flex absolute top-0 left-1 items-center space-x-2">
+            <img src="/logo.png" alt="Logo" className="w-20 h-20" />
+            <h2 className="text-4xl font-semibold">FeeScope</h2>
           </div>
 
           <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
@@ -287,6 +474,7 @@ export default function Home() {
               {/* Shareable Card */}
               {showShareCard && (
                 <ImageModal
+                  wallet={walletAddress}
                   feeData={feeData}
                   onClose={() => setShowShareCard(false)}
                 />
@@ -343,7 +531,7 @@ export default function Home() {
           {/* Leaderboard Section */}
           <div
             id="leaderboard"
-            className="md:w-2/5 mx-3 bg-gray-800/50 rounded-2xl border border-gray-700 p-6 shadow-2xl mt-12 h-96 overflow-y-auto"
+            className="md:w-2/5 mx-3 bg-gray-800/50 rounded-2xl border border-gray-700 p-6 shadow-2xl mt-12 "
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
@@ -354,7 +542,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-gray-700/30 rounded-lg overflow-hidden">
+            <div className="bg-gray-700/30 rounded-lg overflow-hidden h-72 overflow-y-auto">
               <table className="w-full text-gray-300">
                 {/* Sticky Header */}
                 <thead className="bg-gray-700/50 sticky top-0">
@@ -416,7 +604,7 @@ export default function Home() {
                 <div className="animate-pulse text-gray-400">Loading leaderboard...</div>
               </div>
             ) : (
-              <div className="bg-gray-700/30 rounded-lg overflow-hidden">
+              <div className="bg-gray-700/30 rounded-lg overflow-hidden h-72 overflow-y-auto">
                 <table className="w-full text-gray-300">
                   <thead className="bg-gray-700/50">
                     <tr>
@@ -427,7 +615,7 @@ export default function Home() {
                   </thead>
                   <tbody>
                     {leaderboard.length > 0 ? (
-                      leaderboard.map((entry, index) => (
+                      leaderboard.slice(0, 50).map((entry, index) => (
                         <tr
                           key={entry.wallet}
                           className={`
@@ -495,38 +683,45 @@ export default function Home() {
   )
 }
 
-const ImageModal = ({ feeData, onClose }) => {
-  const copyImageToClipboard = () => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    img.crossOrigin = 'Anonymous';
-    img.onload = async () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
+const ImageModal = ({ feeData, onClose, wallet }) => {
+  // Create a ref for the container that holds the complete image with overlays
+  const imageContainerRef = useRef(null);
 
-      // Match the styling from the displayed image
-      ctx.font = "bold 28px 'Poppins', sans-serif";
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
+  const copyImageToClipboard = async () => {
+    if (!imageContainerRef.current) return;
 
-      // Position text at 10% from the top instead of center
-      const textY = canvas.height * 0.1;
-      ctx.fillText(`-${feeData.totalFees.toFixed(9)} SOL`, canvas.width / 2, textY);
+    try {
+      const dataUrl = await domtoimage.toPng(imageContainerRef.current, {
+        quality: 0.95,
+        bgcolor: 'transparent',
+        scale: 2
+      });
 
-      canvas.toBlob(async (blob) => {
-        try {
-          await navigator.clipboard.write([
-            new ClipboardItem({ 'image/png': blob })
-          ]);
-          alert('Image copied to clipboard! ✅');
-        } catch (err) {
-          console.error('Failed to copy image: ', err);
-        }
-      }, 'image/png');
-    };
-    img.src = '/pnl.png';
+      // Create an image and convert to blob for clipboard
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        canvas.toBlob(async (blob) => {
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({ 'image/png': blob })
+            ]);
+            alert('Image copied to clipboard! ✅');
+          } catch (err) {
+            console.error('Failed to copy image: ', err);
+          }
+        }, 'image/png');
+      };
+      img.src = dataUrl;
+    } catch (err) {
+      console.error('Failed to capture image: ', err);
+    }
   };
 
   return (
@@ -540,23 +735,28 @@ const ImageModal = ({ feeData, onClose }) => {
             ✕
           </button>
         </div>
-        <div className="relative">
-          <img src="/pnl.png" alt="PNL Chart" className="w-full" />
+        {/* Apply the ref to this container */}
+        <div className="relative" ref={imageContainerRef}>
+          <img src="/raw.png" alt="PNL Chart" className="w-full" />
           <div
-            className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-            style={{ top: '10%' }}
+            className="absolute"
+            style={{ top: '22%', left: '60%' }}
           >
             <h2
-              className="text-white font-extrabold text-4xl bg-opacity-50 p-4 rounded"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
+              className="text-white font-extrabold bg-opacity-50 p-4 rounded"
+              style={{ fontFamily: "'Poppins', sans-serif", fontSize: '22px' }}
             >
-              -{feeData.totalFees.toFixed(9)} SOL
+              <div>{feeData.totalFees.toFixed(2)}</div>
+              <div>SOL</div>
             </h2>
+          </div>
+          <div className='absolute' style={{ top: '84%', left: '21%', fontWeight: 'bold' }}>
+            {wallet.slice(0, 4)}...{wallet.slice(-4)}
           </div>
         </div>
         <div className="mt-4 flex justify-end">
           <button
-            className="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 
+            className="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800
               text-white py-3 px-6 rounded-lg font-semibold shadow-lg transition-all
               duration-300 transform hover:scale-105 cursor-pointer"
             onClick={copyImageToClipboard}
