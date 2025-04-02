@@ -398,9 +398,14 @@ export default function Home() {
                 <div className="bg-white/90 dark:bg-gray-800/90 p-6 rounded-lg shadow-lg flex flex-col items-center relative transition-all duration-300 ease-in-out border border-gray-200 dark:border-gray-700">
                   {/* Loading Indicator */}
                   {isLoading && (
-                    <div className="flex items-center space-x-2 py-4">
-                      <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-                      <div className="animate-pulse text-gray-800 dark:text-gray-200 font-medium">Loading Transactions...</div>
+                    <div className='flex flex-col'>
+                      <div className="flex items-center space-x-2 py-4">
+                        <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                        <div className="animate-pulse text-gray-800 dark:text-gray-200 font-medium">Loading Transactions...</div>
+                      </div>
+                      <div className="text-gray-300 font-medium w-80 mx-auto">
+                        We’re currently processing all transactions to provide you with the most accurate results. Please be patient while we gather the information
+                      </div>
                     </div>
                   )}
                   {/* Iframe for the game */}
