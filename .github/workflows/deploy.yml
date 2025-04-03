@@ -21,8 +21,8 @@ jobs:
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
           
-          ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST << 'EOF'
-            cd /home/$EC2_USER/solana_fee_tracker
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@$EC2_HOST << 'EOF'
+            cd /home/ubuntu/solana_fee_tracker
             git pull origin main
             yarn install --frozen-lockfile
             yarn build
