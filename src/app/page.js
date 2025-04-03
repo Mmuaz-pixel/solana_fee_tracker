@@ -638,14 +638,11 @@ export default function Home() {
                             {index > 2 && <span>{index + 1}</span>}
                           </td>
                           <td className="p-3">
-                            <a
-                              href={`https://solscan.io/account/${entry.wallet}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-400 hover:text-blue-300 underline"
+                            <span
+                              className="text-blue-400 hover:text-blue-300"
                             >
                               {shortenAddress(entry.wallet)}
-                            </a>
+                            </span>
                           </td>
                           <td className="p-3 text-right font-medium text-blue-400">
                             {entry.totalFees}
