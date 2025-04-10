@@ -65,7 +65,10 @@ const Know_wallets = [
   "5K5RtTWzzLp4P8Npi84ocf7F1vBsAu29N1irG4iiUnzt",
   "HYseAPq3ZPYzA35hLsEgmdsKCZQ3P7FBCcCPPytRtyTz",
   "DeZFbKqMsC9i4Z9vgxaTXVFEz2zNsFRBqZp8dmQQeyFd",
-  "45ruCyfdRkWpRNGEqWzjCiXRHkZs8WXCLQ67Pnpye7Hp"
+  "45ruCyfdRkWpRNGEqWzjCiXRHkZs8WXCLQ67Pnpye7Hp",
+  "GV8unppAUobvPfjrR5kDHpcYG8T19KLLLkXAS3sWzgGn",
+  "Bvtgim23rfocUzxVX9j9QFxTbBnH8JZxnaGLCEkXvjKS",
+
 ]
 
 async function fetchTransactions(wallet, apiKey) {
