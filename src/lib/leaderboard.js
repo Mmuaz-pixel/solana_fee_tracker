@@ -44,9 +44,9 @@ export function updateLeaderboard(wallet, totalFees) {
     leaderboard.push({ wallet, totalFees });
   }
 
-  // Sort by total fees in descending order and keep top 10
+  // Sort by total fees in descending order and keep top 50
   leaderboard.sort((a, b) => b.totalFees - a.totalFees);
-  leaderboard = leaderboard.slice(0, 10);
+  leaderboard = leaderboard.slice(0, 50);
 
   saveLeaderboard(leaderboard);
 
