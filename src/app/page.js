@@ -331,7 +331,7 @@ export default function Home() {
   href="https://twitter.com/feescopeonsol"
   target="_blank"
   rel="noopener noreferrer"
-  className="mt-4 inline-flex items-center justify-center space-x-2 px-4 py-2 bg-black border border-white text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300"
+  className="mt-4 inline-flex items-center justify-center w-10 h-10 bg-black border border-white rounded-lg shadow-md hover:bg-gray-900 transition duration-300"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -341,8 +341,8 @@ export default function Home() {
   >
     <path d="M714 591l475-591H993L600 486 231 0H0l498 675L0 1227h207l414-514 377 514h207z" />
   </svg>
-  <span>Follow us on X</span>
 </a>
+
 
         </div>
 
