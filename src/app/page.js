@@ -321,7 +321,7 @@ export default function Home() {
             helping you optimize your transaction strategies.
           </p>
 
-          <p className='text-gray-200 py-2 max-w-2xl mx-auto'>CA: soon</p>
+          <p className='text-gray-200 py-2 max-w-2xl mx-auto'>CA: </p>
 
           <a href='#leaderboard' className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition duration-300 cursor-pointer">
             View Leaderboard
