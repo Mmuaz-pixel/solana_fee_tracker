@@ -324,9 +324,29 @@ export default function Home() {
           <p className='text-gray-200 py-2 max-w-2xl mx-auto'>CA: </p>
 
           <a href='#leaderboard' className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition duration-300 cursor-pointer">
-            View Leaderboard
-          </a>
+  View Leaderboard
+</a>
+
+<a
+  href="https://twitter.com/feescopeonsol"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-4 inline-flex items-center justify-center space-x-2 px-4 py-2 bg-black border border-white text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1200 1227"
+    fill="white"
+    className="w-5 h-5"
+  >
+    <path d="M714 591l475-591H993L600 486 231 0H0l498 675L0 1227h207l414-514 377 514h207z" />
+  </svg>
+  <span>Follow us on X</span>
+</a>
+
         </div>
+
+  
 
         {/* Key Features Preview */}
         <div className="grid md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
