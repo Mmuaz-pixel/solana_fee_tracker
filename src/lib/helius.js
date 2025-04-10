@@ -68,6 +68,27 @@ const Know_wallets = [
   "45ruCyfdRkWpRNGEqWzjCiXRHkZs8WXCLQ67Pnpye7Hp",
   "GV8unppAUobvPfjrR5kDHpcYG8T19KLLLkXAS3sWzgGn",
   "Bvtgim23rfocUzxVX9j9QFxTbBnH8JZxnaGLCEkXvjKS",
+  "45ruCyfdRkWpRNGEqWzjCiXRHkZs8WXCLQ67Pnpye7Hp",
+  "25mYnjJ2MXHZH6NvTTdA63JvjgRVcuiaj6MRiEQNs1Dq",
+  "GV8unppAUobvPfjrR5kDHpcYG8T19KLLLkXAS3sWzgGn",
+  "Bvtgim23rfocUzxVX9j9QFxTbBnH8JZxnaGLCEkXvjKS",
+  "G9PhF9C9H83mAjjkdJz4MDqkufiTPMJkx7TnKE1kFyCp",
+  "BWXT6RUhit9FfJQM3pBmqeFLPYmuxgmyhMGC5sGr8RbA",
+  "BtYvTw4vp517yJnsA4H3FG1fKezANhz95pxdCXa3BYSK",
+  "7GFUN3bWzJMKMRZ34JLsvcqdssDbXnp589SiE33KVwcC",
+  "BzXdDUvNnitfoAEXefvUUc7ZjqXv7Yv3H5aNeGwYjZMS",
+  "79gUQP8xFnrvZxxnnKRKaVWgKNPtG7mKoThxxznKLxJ2",
+  "3GyfBtcgtuhnwTHviyoe5mhugAx7NNxzW2NFTbwp9Nmi",
+  "HviSb86wUarNoFryWegVMVG115TMbpeTVYLfjhRHQjnh",
+  "GhaCLDbcaB3qXphhQjXPxS9MNubkAs4bcqf4degHgrv4",
+  "9ujUdfWLsTY2bohj18p9u3neSQ537dY6LCZR7VzbgkWt",
+  "AhZEEmAMVoSyvEoSrL99izp2t5yqFaGkrbZab68aGC8i",
+  "CPvLKPPmb23MSUnzHZeB1dX47oQFdUwxo9yncAndFri4",
+  "C4MtffotdnDV47arXo9fQxY4Q2pUBmHgYiw6gfRkgffK",
+  "GF74UsMG7iYeGqKJyAsMiwcrfh8y58tH1W8MNBsRLLab",
+  "EDN6SYHMg5qnUrD7ytq6MDY7Bjcqcb8XNknsgcCMuS2R",
+  "EnVppANi2qXbDdWKKXkBTXBx4h2bTAgJko2bYhmfPvKE", 
+
 
 ]
 
