@@ -323,28 +323,39 @@ export default function Home() {
 
           <p className='text-gray-200 py-2 max-w-2xl mx-auto'>CA: </p>
 
-          <a href='#leaderboard' className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition duration-300 cursor-pointer">
-  View Leaderboard
-</a>
-
-<a
-  href="https://twitter.com/feescopeonsol"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="mt-4 inline-flex items-center justify-center w-10 h-10 bg-black border border-white rounded-lg shadow-md hover:bg-gray-900 transition duration-300"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 1200 1227"
-    fill="white"
-    className="w-5 h-5"
+       <div className="flex flex-col items-center space-y-3">
+  <a
+    href="#leaderboard"
+    className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition duration-300 cursor-pointer"
   >
-    <path d="M714 591l475-591H993L600 486 231 0H0l498 675L0 1227h207l414-514 377 514h207z" />
-  </svg>
-</a>
+    View Leaderboard
+  </a>
+
+  <a
+    href="https://twitter.com/feescopeonsol"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 bg-black border border-white rounded-lg flex items-center justify-center hover:bg-gray-900 transition duration-300 relative"
+  >
+    {/* Tooltip */}
+    <span className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-xs text-white bg-black px-2 py-1 rounded opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      Check us out on X!
+    </span>
+
+    {/* X Icon */}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 1227"
+      fill="white"
+      className="w-5 h-5 transition-transform transform hover:scale-110"
+    >
+      <path d="M714 591l475-591H993L600 486 231 0H0l498 675L0 1227h207l414-514 377 514h207z" />
+    </svg>
+  </a>
+</div>
 
 
-        </div>
+      
 
   
 
