@@ -675,7 +675,7 @@ export default function Home() {
             Blockchain Fee Tracking Made Simple
           </p>
           <div className="flex justify-center space-x-4">
-            <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
+            <a href="https://x.com/FeeScopeOnSol" className="hover:text-blue-400 transition-colors">Twitter</a>
             <a href="#" className="hover:text-blue-400 transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-blue-400 transition-colors">Contact</a>
           </div>
