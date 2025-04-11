@@ -407,7 +407,7 @@ export default function Home() {
                         <div className="animate-pulse text-gray-800 dark:text-gray-200 font-medium">Loading Transactions...</div>
                       </div>
                       <div className="text-gray-300 font-medium w-80 mx-auto">
-                        We’re currently processing all transactions to provide you with the most accurate results. Please be patient while we gather the information
+                        We’re currently processing all transactions to provide you with the most accurate results. Large wallets may take a few minutes.
                       </div>
                     </div>
                   )}
