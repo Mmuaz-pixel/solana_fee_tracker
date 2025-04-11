@@ -87,7 +87,10 @@ const Know_wallets = [
   "C4MtffotdnDV47arXo9fQxY4Q2pUBmHgYiw6gfRkgffK",
   "GF74UsMG7iYeGqKJyAsMiwcrfh8y58tH1W8MNBsRLLab",
   "EDN6SYHMg5qnUrD7ytq6MDY7Bjcqcb8XNknsgcCMuS2R",
-  "EnVppANi2qXbDdWKKXkBTXBx4h2bTAgJko2bYhmfPvKE", 
+  "EnVppANi2qXbDdWKKXkBTXBx4h2bTAgJko2bYhmfPvKE",
+  "DeZFbKqMsC9i4Z9vgxaTXVFEz2zNsFRBqZp8dmQQeyFd",
+  "45ruCyfdRkWpRNGEqWzjCiXRHkZs8WXCLQ67Pnpye7Hp",
+  
 
 
 ]
