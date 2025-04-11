@@ -135,7 +135,8 @@ const topLeaderBoards = [
      name: "DV",
     address: "BCagckXeMChUKrHEd6fKFA1uiWDtcmCXMsqaheLiUPJd",
     totalFees: 974.3282531759791
-      
+  },
+  {   
     name: "Red",
     address: "7ABz8qEFZTHPkovMDsmQkm64DZWN5wRtU7LEtD2ShkQ6",
     totalFees: 891.5134470649458
