@@ -132,6 +132,10 @@ const topLeaderBoards = [
     totalFees: 1105.8697194080128
   },
   {
+     name: "DV",
+    address: "BCagckXeMChUKrHEd6fKFA1uiWDtcmCXMsqaheLiUPJd",
+    totalFees: 974.3282531759791
+      
     name: "Red",
     address: "7ABz8qEFZTHPkovMDsmQkm64DZWN5wRtU7LEtD2ShkQ6",
     totalFees: 891.5134470649458
@@ -185,11 +189,6 @@ const topLeaderBoards = [
     name: "Henn100x",
     address: "FRbUNvGxYNC1eFngpn7AD3f14aKKTJVC6zSMtvj2dyCS",
     totalFees: 220.68108175199825
-  },
-  {
-    name: "DV",
-    address: "BCagckXeMChUKrHEd6fKFA1uiWDtcmCXMsqaheLiUPJd",
-    totalFees: 974.3282531759791
   },
   {
     name: "Nyhrox",
