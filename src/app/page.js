@@ -311,6 +311,9 @@ export default function Home() {
             <img src="/logo.png" alt="Logo" className="w-20 h-20" />
             <h2 className="text-4xl font-semibold">FeeScope</h2>
           </div>
+          <div className="flex absolute top-0 right-1 items-center space-x-2">
+            <a href='https://x.com/FeeScopeOnSol' target='_blank'><img src="/x.png" alt="x icon" className="w-16 h-16" /></a>
+          </div>
 
           <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
             Solana Gas Fee Analytics
